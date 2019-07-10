@@ -63,6 +63,7 @@
     "graphql": "^14.2.1",
     "graphql-tools": "^4.0.4",
     "jwt-simple": "^0.5.1",
+    "lodash": "^4.17.13",
     "pg": "^7.4.1",
     "rollbar": "^2.3.9",
     "sequelize": "^4.44.0",
