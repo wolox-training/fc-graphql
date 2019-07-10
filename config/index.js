@@ -48,11 +48,7 @@ const config = {
       secret: process.env.NODE_API_SESSION_SECRET
     },
     albumApi: {
-      url: process.env.ALBUM_API_URL,
-      routes: {
-        albums: process.env.ALBUMS_URL,
-        photos: process.env.PHOTOS_URL
-      }
+      url: process.env.ALBUM_API_URL
     }
   }
 };

@@ -16,10 +16,11 @@ exports.getAlbum = async id => {
       throw errors.notFound(`Album with id ${id} not found`);
     }
     const photosForAlbum = await photosService.getPhotosForAlbum(id);
+    const albumData = albumInfo.data[0];
     return {
-      id: albumInfo.data[0].id,
-      title: albumInfo.data[0].title,
-      artist: albumInfo.data[0].userId,
+      id: albumData.id,
+      title: albumData.title,
+      artist: albumData.userId,
       photos: photosForAlbum
     };
   } catch (err) {
