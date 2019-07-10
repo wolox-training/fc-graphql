@@ -1,7 +1,6 @@
 const axios = require('axios'),
   constants = require('../constants'),
   errors = require('../errors'),
-  albumSerializer = require('../serializers/albums'),
   logger = require('../logger');
 
 const { ALBUM_API_URL } = constants;
@@ -18,26 +17,11 @@ const getPhotosForOneAlbum = async albumId => {
   }
 };
 
-exports.getPhotosForAlbum = async albumId => {
+exports.getPhotosForAlbum = albumId => {
   try {
-    return await getPhotosForOneAlbum(albumId);
+    return getPhotosForOneAlbum(albumId);
   } catch (err) {
     logger.error(`Error while trying to get photos for album with id ${albumId}: ${err}`);
-    throw errors.albumApiError(err.message);
-  }
-};
-
-exports.getPhotosForAlbums = async albums => {
-  const albumsWithPhotos = [];
-  try {
-    await Promise.all(
-      albums.map(async album => {
-        const response = await getPhotosForOneAlbum(album.id);
-        albumsWithPhotos.push(albumSerializer.photosForAlbums(album, response));
-      })
-    );
-    return albumsWithPhotos;
-  } catch (err) {
     throw errors.albumApiError(err.message);
   }
 };
