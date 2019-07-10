@@ -3,8 +3,7 @@ const _ = require('lodash'),
   albumSerializer = require('../serializers/albums'),
   constants = require('../constants'),
   errors = require('../errors'),
-  logger = require('../logger'),
-  photosService = require('./photos');
+  logger = require('../logger');
 
 const { ALBUM_API_URL } = constants;
 
@@ -16,13 +15,11 @@ exports.getAlbum = async id => {
     if (!albumInfo.data.length) {
       throw errors.notFound(`Album with id ${id} not found`);
     }
-    const photosForAlbum = await photosService.getPhotosForAlbum(id);
     const albumData = albumInfo.data[0];
     return {
       id: albumData.id,
       title: albumData.title,
-      artist: albumData.userId,
-      photos: photosForAlbum
+      artist: albumData.userId
     };
   } catch (err) {
     logger.error(`Error while trying to get album with id ${id}: ${err}`);
