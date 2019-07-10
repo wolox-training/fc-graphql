@@ -39,3 +39,16 @@ exports.getAlbums = async (offset, limit, orderBy) => {
     throw errors.albumApiError(err.message);
   }
 };
+
+exports.getAlbumsByTitle = async title => {
+  const url = `${ALBUM_API_URL}/albums`;
+  logger.info(`Making a request to url ${url}`);
+  try {
+    const albums = await axios.get(`${url}`);
+    const albumsInfo = albumSerializer.albumInformation(albums.data);
+    return _.filter(albumsInfo, album => album.title.includes(title));
+  } catch (err) {
+    logger.error('Error while trying to get albums');
+    throw errors.albumApiError(err.message);
+  }
+};
