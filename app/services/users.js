@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt'),
+const bcrypt = require('bcryptjs'),
   constants = require('../constants'),
   errors = require('../errors'),
   logger = require('../logger'),
@@ -7,8 +7,8 @@ const bcrypt = require('bcrypt'),
 exports.create = async user => {
   logger.info(`Trying to create a new user: ${user}`);
   const { password } = user;
-  user.password = await bcrypt.hash(password, constants.SALT_ROUNDS);
   try {
+    user.password = await bcrypt.hash(password, constants.SALT_ROUNDS);
     const createdUser = await User.create(user);
     logger.info(`User with email ${createdUser.email} created succesfully`);
     return {
