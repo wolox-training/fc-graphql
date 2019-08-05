@@ -1,4 +1,4 @@
-const _ = require('lodash'),
+const { orderBy } = require('lodash'),
   axios = require('axios'),
   albumSerializer = require('../serializers/albums'),
   constants = require('../constants'),
@@ -27,13 +27,13 @@ exports.getAlbum = async id => {
   }
 };
 
-exports.getAlbums = async (offset, limit, orderBy) => {
+exports.getAlbums = async (offset, limit, order) => {
   const url = `${ALBUM_API_URL}/albums`;
   logger.info(`Making a request to url ${url}`);
   try {
     const albums = await axios.get(`${url}`);
     const paginationAlbums = albumSerializer.albumInformation(albums.data.slice(offset, offset + limit));
-    return _.orderBy(paginationAlbums, [orderBy]);
+    return orderBy(paginationAlbums, [order]);
   } catch (err) {
     logger.error('Error while trying to get albums');
     throw errors.albumApiError(err.message);
