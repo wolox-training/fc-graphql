@@ -1,3 +1,5 @@
+const errors = require('../errors');
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'user',
@@ -12,13 +14,18 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         field: 'last_name'
       },
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
       email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        isEmail: true,
+        unique: true,
+        validate: {
+          emailFormat(value) {
+            if (!value.endsWith('@wolox.com.ar')) {
+              throw errors.invalidParams(`Email format invalid: ${value}`);
+            }
+          }
+        }
       },
       password: {
         type: DataTypes.STRING,
