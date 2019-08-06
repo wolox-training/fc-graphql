@@ -49,6 +49,9 @@ const config = {
     },
     albumApi: {
       url: process.env.ALBUM_API_URL
+    },
+    bcrypt: {
+      saltRounds: process.env.SALT_ROUNDS
     }
   }
 };
