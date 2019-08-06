@@ -1,10 +1,18 @@
 const { gql } = require('apollo-server'),
   { userLoggedIn } = require('../events'),
-  userService = require('../../services/users');
+  { validateUser } = require('../../schemas/users'),
+  User = require('../../models').user;
 
 module.exports = {
   mutations: {
-    createUser: (_, params) => userService.create(params),
+    createUser: async (_, user) => {
+      try {
+        await validateUser(user);
+        return User.createUser(user);
+      } catch (err) {
+        throw err;
+      }
+    },
     login: (_, { credentials }) => {
       // IMPORTANT: Not a functional login, its just for illustrative purposes
       userLoggedIn.publish(credentials.username);
