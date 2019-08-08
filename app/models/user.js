@@ -1,4 +1,5 @@
-const errors = require('../errors');
+const errors = require('../errors'),
+  logger = require('../../logger');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -37,6 +38,15 @@ module.exports = (sequelize, DataTypes) => {
       underscored: true
     }
   );
+
+  User.createUser = user => {
+    try {
+      return User.create(user);
+    } catch (err) {
+      logger.error('Error while trying to create an user');
+      throw errors.databaseError(err.message);
+    }
+  };
 
   User.getOne = user => User.findOne({ where: user });
 
