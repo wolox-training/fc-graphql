@@ -12,21 +12,22 @@ const statusCodes = {
   DATABASE_ERROR: 503
 };
 
-const DEFAULT_ERROR = 'default_error';
-const NOT_FOUND = 'not_found';
-const BAD_REQUEST_ERROR = 'bad_request_error';
-const ALBUM_API_ERROR = 'album_api_error';
-const INVALID_PARAMS = 'invalid_params';
-const DATABASE_ERROR = 'invalid_params';
+exports.DEFAULT_ERROR = 'default_error';
+exports.NOT_FOUND = 'not_found';
+exports.BAD_REQUEST_ERROR = 'bad_request_error';
+exports.ALBUM_API_ERROR = 'album_api_error';
+exports.INVALID_PARAMS = 'invalid_params';
+exports.DATABASE_ERROR = 'invalid_params';
 
-exports.notFound = message => createError(message, statusCodes.NOT_FOUND, NOT_FOUND);
+exports.notFound = message => createError(message, statusCodes.NOT_FOUND, exports.NOT_FOUND);
 
-exports.badRequestError = message => createError(message, statusCodes.BAD_REQUEST_ERROR, BAD_REQUEST_ERROR);
+exports.badRequestError = message =>
+  createError(message, statusCodes.BAD_REQUEST_ERROR, exports.BAD_REQUEST_ERROR);
 
-exports.defaultError = message => createError(message, statusCodes.DEFAULT_ERROR, DEFAULT_ERROR);
+exports.defaultError = message => createError(message, statusCodes.DEFAULT_ERROR, exports.DEFAULT_ERROR);
 
-exports.albumApiError = message => createError(message, statusCodes.ALBUM_API_ERROR, ALBUM_API_ERROR);
+exports.albumApiError = message => createError(message, statusCodes.ALBUM_API_ERROR, exports.ALBUM_API_ERROR);
 
-exports.invalidParams = message => createError(message, statusCodes.INVALID_PARAMS, INVALID_PARAMS);
+exports.invalidParams = message => createError(message, statusCodes.INVALID_PARAMS, exports.INVALID_PARAMS);
 
-exports.databaseError = message => createError(message, statusCodes.DATABASE_ERROR, DATABASE_ERROR);
+exports.databaseError = message => createError(message, statusCodes.DATABASE_ERROR, exports.DATABASE_ERROR);
